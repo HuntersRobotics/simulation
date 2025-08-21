@@ -17,6 +17,7 @@ from launch.actions.append_environment_variable import AppendEnvironmentVariable
 class WorldType:
     RMUC = 'RMUC'
     RMUL = 'RMUL'
+    WAREHOUSE = 'WAREHOUSE'
 
 def get_world_config(world_type):
     world_configs = {
@@ -34,6 +35,9 @@ def get_world_config(world_type):
             'yaw': '0.0',
             'world_path': 'RMUL2024_world/RMUL2024_world.world'
             # 'world_path': 'RMUL2024_world/RMUL2024_world_dynamic_obstacles.world'
+        },
+        WorldType.WAREHOUSE:{
+            'world_path': 'small_warehouse.world'
         }
     }
     return world_configs.get(world_type, None)
@@ -60,8 +64,8 @@ def generate_launch_description():
 
     declare_world_cmd = DeclareLaunchArgument(
         'world',
-        default_value=WorldType.RMUC,
-        description='Choose <RMUC> or <RMUL>'
+        default_value=WorldType.WAREHOUSE,
+        description='Choose <RMUC>, <WAREHOUSE> or <RMUL>'
     )
 
     # Specify the actions
@@ -87,6 +91,7 @@ def generate_launch_description():
 
     bringup_RMUC_cmd_group = create_gazebo_launch_group(WorldType.RMUC)
     bringup_RMUL_cmd_group = create_gazebo_launch_group(WorldType.RMUL)
+    bringup_WAREHOUSE_cmd_group = create_gazebo_launch_group(WorldType.WAREHOUSE)
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -99,5 +104,6 @@ def generate_launch_description():
     ld.add_action(gazebo_client_launch)
     ld.add_action(bringup_RMUC_cmd_group) # type: ignore
     ld.add_action(bringup_RMUL_cmd_group) # type: ignore
+    ld.add_action(bringup_WAREHOUSE_cmd_group) # type: ignore
 
     return ld
