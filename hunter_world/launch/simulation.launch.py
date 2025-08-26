@@ -5,7 +5,7 @@ import os
 from ament_index_python.packages import get_package_share_directory, get_package_share_path
 
 from launch import LaunchDescription
-from launch.substitutions import LaunchConfiguration, Command
+from launch.substitutions import LaunchConfiguration, Command, EnvironmentVariable, PythonExpression
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, GroupAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
@@ -50,6 +50,15 @@ def generate_launch_description():
     # Create the launch configuration variables
     use_sim_time = LaunchConfiguration('use_sim_time')
 
+
+    new_model_path = bringup_dir + '/meshes'
+    print(f"new model path  = {new_model_path}")
+
+    if 'GAZEBO_MODEL_PATH' in os.environ:
+        os.environ['GAZEBO_MODEL_PATH'] = new_model_path + ':' + os.environ['GAZEBO_MODEL_PATH']
+    else:
+        os.environ['GAZEBO_MODEL_PATH'] = new_model_path
+    
     # Set Gazebo plugin path
     append_enviroment = AppendEnvironmentVariable(
         'GAZEBO_PLUGIN_PATH',
@@ -64,7 +73,7 @@ def generate_launch_description():
 
     declare_world_cmd = DeclareLaunchArgument(
         'world',
-        default_value=WorldType.WAREHOUSE,
+        default_value=WorldType.RMUC,
         description='Choose <RMUC>, <WAREHOUSE> or <RMUL>'
     )
 

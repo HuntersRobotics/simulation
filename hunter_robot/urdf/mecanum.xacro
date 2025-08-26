@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <robot name="sentry_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
+    
   <xacro:property name="length_wheel" value="0.05" />
   <xacro:property name="radius_wheel" value="0.06" />
   <xacro:property name="PI" value="3.1415926"/>
@@ -210,7 +210,7 @@
         <!-- Add a namespace -->
         <namespace>/</namespace>
         <!-- Remap the default topic -->
-<!--        <remapping>cmd_vel:=cmd_vel_chassis</remapping>-->
+       <remapping>cmd_vel:=cmd_vel_chassis</remapping>
         <remapping>odom:=odom</remapping>
       </ros>
 
@@ -251,7 +251,7 @@
   </gazebo>
 
   <!-- Livox-Mid360  -->
-  <xacro:include filename="$(find ros2_livox_simulation)/urdf/mid360.xacro" />
+  <xacro:include filename="$(find hunter_robot)/urdf/mid360.xacro" />
   <xacro:mid360 name="livox_frame" parent="base_link" topic="/livox/lidar">
     <origin xyz="$(arg xyz)" rpy="$(arg rpy)" />
   </xacro:mid360>
