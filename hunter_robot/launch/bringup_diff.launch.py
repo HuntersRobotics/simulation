@@ -76,10 +76,10 @@ def generate_launch_description():
     )
 
 
-    # # 正确生成robot_description的方式
-    # robot_description_content = Command(
-    #     ['xacro ', urdf_model_path]
-    # )
+    # 正确生成robot_description的方式
+    robot_description_content = Command(
+        ['xacro ', urdf_model_path]
+    )
     # Launch the robot in Gazebo
     def create_robot(world_type):
         world_config = get_world_config(world_type)
@@ -125,10 +125,10 @@ def generate_launch_description():
     start_robot_state_publisher_cmd = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        arguments=[urdf_model_path]
-        # parameters=[{
-        #     'robot_description': robot_description_content
-        # }],
+        # arguments=[urdf_model_path]
+        parameters=[{
+            'robot_description': robot_description_content
+        }],
     )
     bringup_RMUC = create_robot(WorldType.RMUC)
     bringup_RMUL = create_robot(WorldType.RMUL)
