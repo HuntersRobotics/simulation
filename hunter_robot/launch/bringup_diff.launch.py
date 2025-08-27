@@ -49,11 +49,15 @@ def get_world_config(world_type):
 
 def generate_launch_description():
     package_name = "hunter_robot"
-    urdf_name = "diff.urdf"
+    urdf_name = "diff.xacro"
 
     ld = LaunchDescription()
     pkg_share = get_package_share_directory(package_name)
     urdf_model_path = os.path.join(pkg_share, 'urdf', urdf_name)
+    # 正确生成robot_description的方式
+    default_robot_description = Command(
+        ['xacro ', urdf_model_path]
+    )
 
     new_model_path = pkg_share + '/models'
     print(f"new model path  = {new_model_path}")
@@ -62,6 +66,9 @@ def generate_launch_description():
         os.environ['GAZEBO_MODEL_PATH'] = new_model_path + ':' + os.environ['GAZEBO_MODEL_PATH']
     else:
         os.environ['GAZEBO_MODEL_PATH'] = new_model_path
+
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    robot_description = LaunchConfiguration('robot_description')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         'use_sim_time',
@@ -75,11 +82,15 @@ def generate_launch_description():
         description='Choose <RMUC>, <WAREHOUSE> or <RMUL>'
     )
 
-
-    # 正确生成robot_description的方式
-    robot_description_content = Command(
-        ['xacro ', urdf_model_path]
+    declare_robot_description_cmd = DeclareLaunchArgument(
+        'robot_description',
+        default_value=default_robot_description,
+        description='Robot description'
     )
+
+
+
+
     # Launch the robot in Gazebo
     def create_robot(world_type):
         world_config = get_world_config(world_type)
@@ -125,10 +136,23 @@ def generate_launch_description():
     start_robot_state_publisher_cmd = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
+        name='robot_state_publisher',
         # arguments=[urdf_model_path]
         parameters=[{
-            'robot_description': robot_description_content
+            'use_sim_time': use_sim_time,
+            'robot_description': robot_description
         }],
+    )
+
+    start_joint_state_publisher_cmd = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'robot_description': robot_description
+        }],
+        output='screen'
     )
     bringup_RMUC = create_robot(WorldType.RMUC)
     bringup_RMUL = create_robot(WorldType.RMUL)
@@ -136,7 +160,9 @@ def generate_launch_description():
 
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_world_cmd)
+    ld.add_action(declare_robot_description_cmd)
     ld.add_action(start_robot_state_publisher_cmd)
+    ld.add_action(start_joint_state_publisher_cmd)
     ld.add_action(bringup_RMUC)
     ld.add_action(bringup_RMUL)
     ld.add_action(bringup_WAREHOUSE)
