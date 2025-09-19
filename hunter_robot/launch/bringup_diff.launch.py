@@ -24,14 +24,14 @@ def get_world_config(world_type):
         WorldType.RMUC: {
             'x': '6.35',
             'y': '7.6',
-            'z': '0.2',
+            'z': '2',
             'yaw': '0.0',
             'world_path': 'RMUC2024_world/RMUC2024_world.world'
         },
         WorldType.RMUL: {
             'x': '4.3',
             'y': '3.35',
-            'z': '1.16',
+            'z': '2',
             'yaw': '0.0',
             'world_path': 'RMUL2024_world/RMUL2024_world.world'
             # 'world_path': 'RMUL2024_world/RMUL2024_world_dynamic_obstacles.world'
@@ -39,7 +39,7 @@ def get_world_config(world_type):
         WorldType.WAREHOUSE:{
             'x': '-2',
             'y': '0',
-            'z': '0',
+            'z': '2',
             'yaw': '0.0',
             'world_path': 'small_warehouse.world'
         }

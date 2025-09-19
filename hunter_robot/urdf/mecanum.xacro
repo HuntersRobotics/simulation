@@ -14,10 +14,9 @@
   </xacro:macro>
 
   <!-- base_link to livox_frame -->
-  <xacro:arg name="xyz" default="0.12 0.0 0.175" />
+  <xacro:arg name="xyz" default="-0.12 0.0 -0.175" />
   <xacro:arg name="rpy" default="0 0 0" />
 
-  <link name="dummy"/>
 
   <link name="base_link">
     <visual>
@@ -38,10 +37,6 @@
     <xacro:default_inertial mass="8.2"/>
   </link>
 
-  <joint name="dummy_joint" type="fixed">
-     <parent link="dummy"/>
-     <child link="base_link"/>
-  </joint>
 
   <link name="wheel_1">
     <visual>
@@ -252,7 +247,7 @@
 
   <!-- Livox-Mid360  -->
   <xacro:include filename="$(find hunter_robot)/urdf/mid360.xacro" />
-  <xacro:mid360 name="livox_frame" parent="base_link" topic="/livox/lidar">
+  <xacro:mid360 name="livox_frame" mid360_link="base_link" topic="/livox/lidar">
     <origin xyz="$(arg xyz)" rpy="$(arg rpy)" />
   </xacro:mid360>
 

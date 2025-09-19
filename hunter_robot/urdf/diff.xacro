@@ -269,8 +269,8 @@
 
   <!-- Livox-Mid360  -->
   <xacro:include filename="$(find hunter_robot)/urdf/mid360.xacro" />
-  <xacro:mid360 name="livox_frame" parent="base_link" topic="/livox/lidar">
-    <origin xyz="0 0 0.135" rpy="0 0 0" />
+  <xacro:mid360 name="livox_frame" mid360_link="base_link" topic="/livox/lidar">
+    <origin xyz="0 0 -0.135" rpy="0 0 0" />
   </xacro:mid360>
 
 </robot>

@@ -24,7 +24,7 @@
 
 
 
-  <xacro:macro name="mid360" params="name:='' parent:= 'base_link' topic:='mid360' *origin ">
+  <xacro:macro name="mid360" params="name:='' mid360_link:= 'base_link' topic:='mid360' *origin ">
 
 <link name="${name}">
 <xacro:box_inertia m="${length}" w="${width}" d="${length}" h="${height}"/>
@@ -38,8 +38,8 @@
 </link>
 
     <joint name="${name}_joint" type="fixed">
-      <parent link="${parent}"/>
-      <child link="${name}"/>
+      <parent link="${name}"/>
+      <child link="${mid360_link}"/>
       <xacro:insert_block name="origin"/>
     </joint>
 
