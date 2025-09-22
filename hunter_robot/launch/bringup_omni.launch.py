@@ -49,7 +49,7 @@ def get_world_config(world_type):
 
 def generate_launch_description():
     package_name = "hunter_robot"
-    urdf_name = "diff.xacro"
+    urdf_name = "omni.xacro"
 
     ld = LaunchDescription()
     pkg_share = get_package_share_directory(package_name)
@@ -136,7 +136,7 @@ def generate_launch_description():
     start_robot_state_publisher_cmd = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        name='robot_state_publisher',
+        name='omni_robot_state_publisher',
         # arguments=[urdf_model_path]
         parameters=[{
             'use_sim_time': use_sim_time,
@@ -147,7 +147,7 @@ def generate_launch_description():
     start_joint_state_publisher_cmd = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
-        name='joint_state_publisher',
+        name='omni_joint_state_publisher',
         parameters=[{
             'use_sim_time': use_sim_time,
             'robot_description': robot_description

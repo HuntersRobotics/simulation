@@ -34,7 +34,7 @@
       </geometry>
       <origin rpy="0 0 ${PI/2}" xyz="0 0 0.05"/>
     </collision>
-    <xacro:default_inertial mass="8.2"/>
+    <xacro:default_inertial mass="0.2"/>
   </link>
 
 
