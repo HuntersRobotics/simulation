@@ -22,6 +22,10 @@ sudo apt install ros-humble-teleop-twist-keyboard
 
 # Compile and Run 
 
+> !!!!!  
+> If your shell is Bash, your can load your ros environment by "**source install/setup.bash**"  
+> !!!!!  
+
 ## the 1st terminal
 ```bash
 cd ~
@@ -30,21 +34,26 @@ cd hunter
 git clone https://github.com/HuntersRobotics/simulation.git --depth 1
 cd simulation
 colcon build
-source install/setup.bash # If your shell is Bash
 source install/setup.zsh # If your shell is Zsh
 ros2 launch hunter_world simulation.launch.py # Load gazebo simulation environment in the current terminal
 ```
 
 ## the 2nd terminal
 ```bash
+cd ~/hunter/simulation
+source install/setup.zsh # If your shell is Zsh
 ./restart_robot_diff.sh # create a diff robot in another terminal
 ```
 ## the 3rd terminal
 ```bash
+cd ~/hunter/simulation
+source install/setup.zsh # If your shell is Zsh
 rviz2 -d rviz/mid360.rviz # Open rviz2 with mid360.rviz configuration
 ```
 
 ## the 4th terminal
 ```bash
+cd ~/hunter/simulation
+source install/setup.zsh # If your shell is Zsh
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```

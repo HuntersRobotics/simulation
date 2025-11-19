@@ -84,8 +84,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 6.431532859802246
-        Min Value: -0.13269160687923431
+        Max Value: 6.396546363830566
+        Min Value: -0.10337796807289124
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -111,7 +111,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /livox/lidar_PointCloud2
+        Value: /livox/lidar/pointcloud
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -122,11 +122,19 @@ Visualization Manager:
         All Enabled: true
         base_link:
           Value: true
-        dummy:
+        camera_init:
+          Value: true
+        caster_link:
           Value: true
         imu_link:
           Value: true
+        left_wheel_link:
+          Value: true
         livox_frame:
+          Value: true
+        odom:
+          Value: true
+        right_wheel_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -134,12 +142,19 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        dummy:
+        livox_frame:
           base_link:
+            caster_link:
+              {}
             imu_link:
               {}
-            livox_frame:
+            left_wheel_link:
               {}
+            right_wheel_link:
+              {}
+        odom:
+          camera_init:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -165,11 +180,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        dummy:
+        caster_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
         imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -178,23 +199,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
-        wheel_1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_4:
+        right_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -253,7 +258,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 14.263917922973633
+      Distance: 36.844722747802734
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -268,10 +273,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8921474814414978
+      Pitch: 0.5871474742889404
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.948745608329773
+      Yaw: 2.568748712539673
     Saved: ~
 Window Geometry:
   Camera:
