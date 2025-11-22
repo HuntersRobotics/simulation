@@ -15,6 +15,8 @@ sudo apt update
 
 # Install ROS2
 ```bash
+sudo apt install -y ros2-apt-source
+sudo apt update
 sudo apt install -y ros-humble-desktop-full ros-humble-gazebo-* ros-humble-rivz*
 ```
 
